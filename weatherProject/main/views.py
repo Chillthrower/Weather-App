@@ -28,7 +28,7 @@ def index(request):
         city = request.POST['city']
         unit = request.POST.get('unit', 'metric')
 
-        api_key = '299b34a54a9024585bfb9af8d89d523a'
+        api_key = 'API_KEY_HERE'
         url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&units={unit}&appid={api_key}'
         response = requests.get(url)
         data = response.json()
