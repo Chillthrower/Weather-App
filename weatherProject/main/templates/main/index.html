@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cerulean/bootstrap.min.css"
+    integrity="sha512-dQLT/B7byn2LjN/DN4zeBKpwGV6qbidV0XiMRWQOL7TGrV7FkZFldkGG+DGMU+CQnMTcRZlUI7GMWt1j6akNew=="
+    crossorigin="anonymous" />
+  <title>Weather App </title>
+</head>
+
+<body>
+  <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <div class="container">
+      <a href="../" class="navbar-brand">Weather App <span style="color: rgb(39, 117, 161);"> <strong> - Django
+            Framework</strong>
+        </span> </a>
+      <a href="https://openweathermap.org" class="navbar-tech">OpenWeather - Get Your API</a>
+      <form method="post" action="{% url 'logout' %}" class="ms-auto">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Logout</button>
+      </form>
+    </div>
+  </div>
+
+  <br /><br /> <br>
+  <div id="jumbotron" class="jumbotron" style="text-align: center; margin-top:-50px">
+    <h1 class="display-5">Weather Desktop App </h1>
+    <h5>Using Python Language and Django Framework</h5>
+
+    <img src="{% static 'images/weather.png' %}" class="image" style="width:100px; margin-bottom:-50px; ">
+  </div>
+
+  <nav class="bg-dark border-gray-200 dark:bg-gray-900">
+    <form method="post" class="col-md">
+      {% csrf_token %}
+      <div class="input-group">
+        <input type="text" class="form-control" name="city" placeholder="Choose Your City ...">
+        <div class="input-group-btn">
+          <button type="submit" class="py-2.999 px-5 me-1 mb-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">search</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="unit" style="color: white;">Unit of Measurement:</label>
+        <select class="form-control" id="unit" name="unit">
+          <option value="metric">Celsius</option>
+          <option value="imperial">Fahrenheit</option>
+        </select>
+      </div>
+    </form>
+  </nav>
+
+  <br> <br>
+  {% if weather_data %}
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <div class="card text-white bg-light mb-6">
+          <div class="card-body">
+            <h4><span class="badge badge-primary">Country Code :</span> {{weather_data.country_code}}</h4>
+            <h4><span class="badge badge-primary">Coordinates [X,Y] :</span> {{weather_data.coordinate}}</h4>
+            <h4><span class="badge badge-primary">Temperature :</span> {{weather_data.temp}}</h4>
+            <h4><span class="badge badge-primary">Pressure :</span> {{weather_data.pressure}} </h4>
+            <h4><span class="badge badge-primary">Humidity :</span> {{weather_data.humidity}}</h4>
+            <h4><span class="badge badge-primary">Forecast :</span> {{weather_data.main}} <img
+                src="http://openweathermap.org/img/w/{{weather_data.icon}}.png" alt="Image"
+                style="width:70px"></h4>
+            <h4><span class="badge badge-primary">Description :</span> {{weather_data.description}}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</body>
+
+</html>
